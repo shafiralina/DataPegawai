@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.magang_ITS.magang_ITS_new_java.message.BaseResponse;
 import com.magang_ITS.magang_ITS_new_java.message.DataPegawaiRequest;
 import com.magang_ITS.magang_ITS_new_java.message.Pegawai;
+import com.magang_ITS.magang_ITS_new_java.message.SaveRequest;
 import com.magang_ITS.magang_ITS_new_java.message.DataPegawaiResponse;
 import com.magang_ITS.magang_ITS_new_java.model.User;
 import com.magang_ITS.magang_ITS_new_java.repository.DataPegawaiRepository;
@@ -52,35 +54,22 @@ public class MagangController {
 		return data;
 	}
 
-//	@PostMapping("/pegawai/simpandata")
-//	@ResponseBody
-//	public Object simpanData(@RequestBody DataPegawaiRequest request) throws IOException {
-//		Object response = new DataPegawaiResponse();
-//		// TODO: panggil Service nya
-//		response = serviceData.data(request);
-//
-//		return response;
-//	}
-
-	@RequestMapping(value = { "/pegawai/simpandata" }, method = RequestMethod.POST, consumes = {
+	@RequestMapping(value = { "/response/magang" }, method = RequestMethod.POST, consumes = {
 			MediaType.ALL_VALUE }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public DataPegawaiResponse simpanData(HttpServletRequest request,
-			@RequestBody @Valid DataPegawaiRequest objectRequest)
+	public BaseResponse saveData(HttpServletRequest request, @RequestBody @Valid SaveRequest objectRequest)
 			throws IllegalAccessException, InvocationTargetException, IOException {
 
 		ObjectMapper mapper = new ObjectMapper();
 		// Object to JSON in String
 		String jsonInString = mapper.writeValueAsString(objectRequest);
 
-//		log.debug("object Req :" + jsonInString);
-
-		Object responses = serviceData.data(objectRequest);
-		DataPegawaiResponse response = new DataPegawaiResponse();
+		Object responses = serviceData.saveData(objectRequest);
+		BaseResponse response = new BaseResponse();
 		BeanUtils.copyProperties(responses, response);
-//		log.debug("object Resp :" + response);
 
 		return response;
 
 	}
+
 }
