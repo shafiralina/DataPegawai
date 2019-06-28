@@ -1,13 +1,11 @@
 package com.magang_ITS.magang_ITS_new_java.message;
 
-import java.io.Serializable;
-
-public class DataPegawaiResponse implements Serializable {
+public class DataPegawaiResponse {
 
 	/**
 	 * @author shafira
 	 */
-	private static final long serialVersionUID = -8403137745358477142L;
+
 	private String status;
 	private String message;
 
@@ -27,8 +25,5 @@ public class DataPegawaiResponse implements Serializable {
 		this.message = message;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 }
